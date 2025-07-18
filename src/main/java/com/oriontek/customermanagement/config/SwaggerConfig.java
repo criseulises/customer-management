@@ -29,11 +29,11 @@ import org.springframework.context.annotation.Configuration;
             API RESTful para el sistema de gestión de clientes de OrionTek.
             
             ## Características principales:
-            - 🔐 Autenticación JWT con roles (SUPERADMIN, ADMIN)
-            - 👥 Gestión de usuarios y administradores
-            - 🏢 Gestión de clientes con múltiples direcciones
-            - 📊 Sistema de auditoría y logs
-            - 🔒 Seguridad robusta con Spring Security
+            - Autenticación JWT con roles (SUPERADMIN, ADMIN)
+            - Gestión de usuarios y administradores
+            - Gestión de clientes con múltiples direcciones
+            - Sistema de auditoría y logs
+            - Seguridad robusta con Spring Security
             
             ## Autenticación:
             1. Haga login en `/api/auth/login` con credenciales válidas
