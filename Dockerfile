@@ -1,31 +1,26 @@
-# --- STAGE 1: Compilación ---
+# --- STAGE 1: Compilación con Maven instalado en la imagen ---
 FROM maven:3.8.8-eclipse-temurin-17 AS build
-
-# Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiamos solo pom y wrapper para caché de dependencias
-COPY pom.xml mvnw ./
-COPY .mvn .mvn
+# 1) Copia únicamente el POM para cachear dependencias
+COPY pom.xml ./
 
-# Descarga dependencias (sin compilar aún)
-RUN ./mvnw dependency:go-offline -B
+# 2) Pre-descarga todas las dependencias (go-offline)
+RUN mvn dependency:go-offline -B
 
-# Copiamos el resto del código y compilamos el jar
-COPY src src
-RUN ./mvnw clean package -DskipTests -B
+# 3) Copia el código fuente y compila el JAR (sin tests)
+COPY src/ src/
+RUN mvn clean package -DskipTests -B
 
-# --- STAGE 2: Runtime ---
-FROM eclipse-temurin:17-jdk-alpine
-
-# Directorio donde vivirá la aplicación
+# --- STAGE 2: Runtime en JRE ligero ---
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
 
-# Copiamos el jar generado desde el stage de build
+# 4) Trae el JAR compilado
 COPY --from=build /app/target/*.jar app.jar
 
-# Puerto que expondrá Spring Boot (coincide con server.port de application.properties)
+# 5) Expón el puerto de la app (coincide con server.port)
 EXPOSE 8080
 
-# Comando de arranque: ejecuta el JAR
+# 6) Punto de entrada
 ENTRYPOINT ["java","-jar","/app/app.jar"]
