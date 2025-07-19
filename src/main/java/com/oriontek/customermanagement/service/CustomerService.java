@@ -115,11 +115,13 @@ public class CustomerService {
         User currentUser = getCurrentUser();
 
         if (currentUser.getRole() == Role.SUPERADMIN) {
+            // CORREGIDO: Usar fromEntity para incluir direcciones
             return customerRepository.findByActiveTrue(pageable)
-                    .map(CustomerResponse::basicFromEntity);
+                    .map(CustomerResponse::fromEntity);
         } else if (currentUser.getRole() == Role.ADMIN) {
+            // CORREGIDO: Usar fromEntity para incluir direcciones
             return customerRepository.findByCreatedByAndActive(currentUser, true, pageable)
-                    .map(CustomerResponse::basicFromEntity);
+                    .map(CustomerResponse::fromEntity);
         } else {
             throw new SecurityException("No tiene permisos para ver clientes");
         }
@@ -165,15 +167,17 @@ public class CustomerService {
         User currentUser = getCurrentUser();
 
         if (currentUser.getRole() == Role.SUPERADMIN) {
+            // CORREGIDO: Usar fromEntity para incluir direcciones
             return customerRepository.searchActiveCustomers(searchTerm, true, pageable)
-                    .map(CustomerResponse::basicFromEntity);
+                    .map(CustomerResponse::fromEntity);
         } else if (currentUser.getRole() == Role.ADMIN) {
             Page<Customer> allResults = customerRepository.searchActiveCustomers(searchTerm, true, pageable);
 
+            // CORREGIDO: Usar fromEntity para incluir direcciones
             List<CustomerResponse> filteredResults = allResults.getContent().stream()
                     .filter(customer -> customer.getCreatedBy() != null &&
                             customer.getCreatedBy().getId().equals(currentUser.getId()))
-                    .map(CustomerResponse::basicFromEntity)
+                    .map(CustomerResponse::fromEntity)
                     .toList();
 
             return new org.springframework.data.domain.PageImpl<>(
@@ -287,8 +291,9 @@ public class CustomerService {
         User createdByUser = new User();
         createdByUser.setId(createdByUserId);
 
+        // CORREGIDO: Usar fromEntity para incluir direcciones
         return customerRepository.findByCreatedByAndActive(createdByUser, true, pageable)
-                .map(CustomerResponse::basicFromEntity);
+                .map(CustomerResponse::fromEntity);
     }
 
     /**

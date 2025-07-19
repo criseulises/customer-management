@@ -100,7 +100,10 @@ public class SecurityConfig {
                 "http://localhost:3000",     // React development
                 "http://localhost:4200",     // Angular development
                 "http://localhost:8080",     // Local testing
-                "https://*.oriontek.com"     // Producción
+                "https://*.oriontek.com",    // Producción
+                "https://customer-management-frontend-lreo.vercel.app",
+                "https://customer-management-frontend-lreo-*.vercel.app",
+                "https://*.vercel.app"       // Patrón para todos los subdominios de Vercel
         ));
 
         configuration.setAllowedMethods(Arrays.asList(
