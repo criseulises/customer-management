@@ -357,8 +357,9 @@ cd customer-management/src/main/resources/postman/
 
 4. **Seleccionar Environment**:
    - Dropdown superior derecho
+     <img src="https://raw.githubusercontent.com/criseulises/customer-management/main/src/main/resources/images/SetEnvironment.png" alt="Configurar Environment" width="600"/>
    - Seleccionar: **"Customer Management - Development"**
-
+     <img src="https://raw.githubusercontent.com/criseulises/customer-management/main/src/main/resources/images/SelectEnvironment.png" alt="Seleccionar Environments" width="600"/>
 ### ⚙️ Variables de Entorno Configuradas
 
 ```json
