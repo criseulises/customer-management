@@ -86,22 +86,22 @@ public class Address {
         }
 
         if (city != null && !city.isEmpty()) {
-            if (fullAddress.length() > 0) fullAddress.append(", ");
+            if (!fullAddress.isEmpty()) fullAddress.append(", ");
             fullAddress.append(city);
         }
 
         if (state != null && !state.isEmpty()) {
-            if (fullAddress.length() > 0) fullAddress.append(", ");
+            if (!fullAddress.isEmpty()) fullAddress.append(", ");
             fullAddress.append(state);
         }
 
         if (zipCode != null && !zipCode.isEmpty()) {
-            if (fullAddress.length() > 0) fullAddress.append(" ");
+            if (!fullAddress.isEmpty()) fullAddress.append(" ");
             fullAddress.append(zipCode);
         }
 
         if (country != null && !country.isEmpty()) {
-            if (fullAddress.length() > 0) fullAddress.append(", ");
+            if (!fullAddress.isEmpty()) fullAddress.append(", ");
             fullAddress.append(country);
         }
 

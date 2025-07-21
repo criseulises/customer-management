@@ -65,12 +65,8 @@ import org.springframework.context.annotation.Configuration;
                         url = "http://localhost:8080"
                 ),
                 @Server(
-                        description = "Staging",
-                        url = "https://api-staging.oriontek.com"
-                ),
-                @Server(
                         description = "Producción",
-                        url = "https://api.oriontek.com"
+                        url = "https://customer-management-production-f510.up.railway.app"
                 )
         },
         security = {

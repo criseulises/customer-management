@@ -115,11 +115,9 @@ public class CustomerService {
         User currentUser = getCurrentUser();
 
         if (currentUser.getRole() == Role.SUPERADMIN) {
-            // CORREGIDO: Usar fromEntity para incluir direcciones
             return customerRepository.findByActiveTrue(pageable)
                     .map(CustomerResponse::fromEntity);
         } else if (currentUser.getRole() == Role.ADMIN) {
-            // CORREGIDO: Usar fromEntity para incluir direcciones
             return customerRepository.findByCreatedByAndActive(currentUser, true, pageable)
                     .map(CustomerResponse::fromEntity);
         } else {
@@ -167,13 +165,11 @@ public class CustomerService {
         User currentUser = getCurrentUser();
 
         if (currentUser.getRole() == Role.SUPERADMIN) {
-            // CORREGIDO: Usar fromEntity para incluir direcciones
             return customerRepository.searchActiveCustomers(searchTerm, true, pageable)
                     .map(CustomerResponse::fromEntity);
         } else if (currentUser.getRole() == Role.ADMIN) {
             Page<Customer> allResults = customerRepository.searchActiveCustomers(searchTerm, true, pageable);
 
-            // CORREGIDO: Usar fromEntity para incluir direcciones
             List<CustomerResponse> filteredResults = allResults.getContent().stream()
                     .filter(customer -> customer.getCreatedBy() != null &&
                             customer.getCreatedBy().getId().equals(currentUser.getId()))
@@ -291,7 +287,6 @@ public class CustomerService {
         User createdByUser = new User();
         createdByUser.setId(createdByUserId);
 
-        // CORREGIDO: Usar fromEntity para incluir direcciones
         return customerRepository.findByCreatedByAndActive(createdByUser, true, pageable)
                 .map(CustomerResponse::fromEntity);
     }
